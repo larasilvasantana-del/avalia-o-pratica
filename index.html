@@ -3,135 +3,163 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mundo da Prova de Laço</title>
+  <title>Jogo da Prova de Laço</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
   <header>
-    <h1>Prova de Laço</h1>
+    <h1>Desafio da Prova de Laço</h1>
     <button id="theme-toggle">Modo Escuro</button>
   </header>
 
-  <main class="container">
-    <section class="card">
-      <h2>A Tradição do Laço Comprido</h2>
-      <p>
-        A prova de laço é uma das modalidades mais tradicionais do universo country e gaúcho. 
-        Exige precisão, sintonia entre o cavaleiro e o cavalo, e muita agilidade para laçar o boi no menor tempo possível.
-      </p>
-
+  <main>
+    <div class="game-container">
+      <img src="https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&w=600&q=80" alt="Cavalo no rodeio" class="game-image">
       
-
-      <div class="actions">
-        <button class="btn-primary" onclick="mostrarMensagem()">Saiba Mais</button>
+      <div class="target-area">
+        <div id="lasso"></div>
+        <div id="target"></div>
       </div>
-      <p id="mensagem" class="hidden">A modalidade testa a habilidade e o reflexo dos competidores em arenas de todo o país!</p>
-    </section>
+
+      <div class="controls">
+        <button id="action-btn">Lançar Laço!</button>
+        <p id="message">Clique em "Lançar Laço" para começar!</p>
+        <p>Pontuação: <span id="score">0</span></p>
+      </div>
+    </div>
   </main>
 
   <script src="script.js"></script>
 </body>
 </html>
-Estilização CSS (style.css)
+Estilização em CSS (style.css)
 
 CSS
 :root {
   --bg-color: #f4f4f9;
-  --card-bg: #ffffff;
   --text-color: #333333;
-  --primary-color: #8b4513; /* Tom amadeirado/country */
-  --button-text: #ffffff;
+  --card-bg: #ffffff;
+  --primary-color: #8b4513;
+  --btn-text: #ffffff;
 }
 
 [data-theme="dark"] {
-  --bg-color: #1e1e1e;
-  --card-bg: #2d2d2d;
+  --bg-color: #1a1a1a;
   --text-color: #f4f4f9;
-  --primary-color: #d2b48c;
-  --button-text: #1e1e1e;
+  --card-bg: #2d2d2d;
+  --primary-color: #d2691e;
+  --btn-text: #ffffff;
 }
 
 body {
+  font-family: Arial, sans-serif;
   background-color: var(--bg-color);
   color: var(--text-color);
-  font-family: Arial, sans-serif;
   margin: 0;
-  padding: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   transition: background-color 0.3s, color 0.3s;
 }
 
 header {
+  width: 100%;
+  max-width: 600px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 2rem;
-  background-color: var(--card-bg);
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
 }
 
-.container {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 0 1rem;
-}
-
-.card {
+.game-container {
   background-color: var(--card-bg);
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   text-align: center;
+  max-width: 500px;
+  width: 100%;
 }
 
-.card img {
-  max-width: 100%;
-  height: auto;
+.game-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
   border-radius: 8px;
-  margin: 1.5rem 0;
+  margin-bottom: 15px;
+}
+
+.target-area {
+  position: relative;
+  width: 100%;
+  height: 40px;
+  background-color: #e0e0e0;
+  border-radius: 20px;
+  margin: 20px 0;
+  overflow: hidden;
+}
+
+#target {
+  position: absolute;
+  left: 40%;
+  width: 20%;
+  height: 100%;
+  background-color: #4caf50;
+}
+
+#lasso {
+  position: absolute;
+  left: 0;
+  width: 15px;
+  height: 100%;
+  background-color: var(--primary-color);
+  border-radius: 4px;
 }
 
 button {
-  padding: 0.6rem 1.2rem;
-  font-size: 1rem;
-  font-weight: bold;
+  background-color: var(--primary-color);
+  color: var(--btn-text);
   border: none;
-  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 6px;
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: transform 0.1s, opacity 0.2s;
 }
 
 button:hover {
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
-#theme-toggle {
-  background-color: var(--text-color);
-  color: var(--bg-color);
+button:active {
+  transform: scale(0.95);
 }
 
-.btn-primary {
-  background-color: var(--primary-color);
-  color: var(--button-text);
-}
-
-.hidden {
-  display: none;
-}
-
-#mensagem {
-  margin-top: 1rem;
+#message {
   font-weight: bold;
+  margin-top: 15px;
 }
-Comportamento JavaScript (script.js)
+Lógica em JavaScript (script.js)
 
 JavaScript
-// Alternar Tema Claro/Escuro
 const themeToggleBtn = document.getElementById('theme-toggle');
+const actionBtn = document.getElementById('action-btn');
+const lasso = document.getElementById('lasso');
+const target = document.getElementById('target');
+const message = document.getElementById('message');
+const scoreDisplay = document.getElementById('score');
 
+let lassoPosition = 0;
+let direction = 1;
+let gameInterval = null;
+let isRunning = false;
+let score = 0;
+
+// Alternar entre modo Claro e Escuro
 themeToggleBtn.addEventListener('click', () => {
   const currentTheme = document.body.getAttribute('data-theme');
-  
   if (currentTheme === 'dark') {
     document.body.removeAttribute('data-theme');
     themeToggleBtn.textContent = 'Modo Escuro';
@@ -141,8 +169,38 @@ themeToggleBtn.addEventListener('click', () => {
   }
 });
 
-// Ação do Botão Principal
-function mostrarMensagem() {
-  const mensagem = document.getElementById('mensagem');
-  mensagem.classList.toggle('hidden')
+// Animação do laço
+function moveLasso() {
+  lassoPosition += 2 * direction;
+  if (lassoPosition >= 95 || lassoPosition <= 0) {
+    direction *= -1;
+  }
+  lasso.style.left = lassoPosition + '%';
 }
+
+// Lógica de acerto/erro
+actionBtn.addEventListener('click', () => {
+  if (!isRunning) {
+    // Iniciar o jogo
+    isRunning = true;
+    actionBtn.textContent = 'Lançar!';
+    message.textContent = 'Aguarde o momento certo...';
+    gameInterval = setInterval(moveLasso, 15);
+  } else {
+    // Parar o laço e verificar acerto
+    clearInterval(gameInterval);
+    isRunning = false;
+    actionBtn.textContent = 'Tentar Novamente';
+
+    // Alvo está posicionado entre 40% e 60% da barra
+    if (lassoPosition >= 40 && lassoPosition <= 55) {
+      score += 10;
+      message.textContent = 'Incrível! Você lazou o boi com precisão!';
+      message.style.color = '#4caf50';
+    } else {
+      message.textContent = 'Que pena, o laço escapou!';
+      message.style.color = '#f44336';
+    }
+    scoreDisplay.textContent = score;
+  }
+});
