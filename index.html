@@ -1,206 +1,186 @@
-<!DOCTYPE html>
+< <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jogo da Prova de Laço</title>
+  <title>Prova de Laço - Tradição e Agilidade</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
   <header>
-    <h1>Desafio da Prova de Laço</h1>
-    <button id="theme-toggle">Modo Escuro</button>
+    <h1>Prova de Laço</h1>
+    <button id="theme-btn">Modo Escuro</button>
   </header>
 
-  <main>
-    <div class="game-container">
-      <img src="https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&w=600&q=80" alt="Cavalo no rodeio" class="game-image">
+  <main class="container">
+    <section class="card">
+      <img src="https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&w=800&q=80" alt="Cavalo e cavaleiro em evento de rodeio" class="hero-img">
       
-      <div class="target-area">
-        <div id="lasso"></div>
-        <div id="target"></div>
+      <h2>A Tradição do Laço Comprido</h2>
+      <p>A prova de laço é uma das modalidades mais tradicionais dos esportes equestres e rodeios. Exige extrema sintonia entre o cavaleiro e o cavalo, além de precisão e rapidez para laçar o novilho no menor tempo possível.</p>
+      
+      <div class="interactive-zone">
+        <h3>Cronômetro de Arena</h3>
+        <p>Simule a largada e o tempo do seu laço na pista!</p>
+        <button id="laco-btn">Iniciar Laçada</button>
+        <p id="resultado">Tempo: 0.00s</p>
       </div>
-
-      <div class="controls">
-        <button id="action-btn">Lançar Laço!</button>
-        <p id="message">Clique em "Lançar Laço" para começar!</p>
-        <p>Pontuação: <span id="score">0</span></p>
-      </div>
-    </div>
+    </section>
   </main>
 
   <script src="script.js"></script>
 </body>
 </html>
-Estilização em CSS (style.css)
-
+2. Estilização CSS (style.css)
 CSS
+/* Variáveis para Tema Claro (Padrão) */
 :root {
-  --bg-color: #f4f4f9;
-  --text-color: #333333;
+  --bg-color: #f4f1ea;
   --card-bg: #ffffff;
+  --text-color: #2c1d11;
   --primary-color: #8b4513;
-  --btn-text: #ffffff;
+  --btn-hover: #a0522d;
+  --shadow: rgba(0, 0, 0, 0.1);
 }
 
+/* Variáveis para Tema Escuro */
 [data-theme="dark"] {
-  --bg-color: #1a1a1a;
-  --text-color: #f4f4f9;
-  --card-bg: #2d2d2d;
+  --bg-color: #1a1614;
+  --card-bg: #2a2421;
+  --text-color: #f4f1ea;
   --primary-color: #d2691e;
-  --btn-text: #ffffff;
+  --btn-hover: #cd853f;
+  --shadow: rgba(0, 0, 0, 0.5);
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: var(--bg-color);
   color: var(--text-color);
   margin: 0;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 0;
   transition: background-color 0.3s, color 0.3s;
 }
 
 header {
-  width: 100%;
-  max-width: 600px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 20px 10%;
+  background-color: var(--card-bg);
+  box-shadow: 0 2px 5px var(--shadow);
+}
+
+h1 {
+  margin: 0;
+  color: var(--primary-color);
+}
+
+.container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.card {
+  background-color: var(--card-bg);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--shadow);
+  text-align: center;
+}
+
+.hero-img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 8px;
   margin-bottom: 20px;
 }
 
-.game-container {
-  background-color: var(--card-bg);
+.interactive-zone {
+  margin-top: 30px;
   padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  text-align: center;
-  max-width: 500px;
-  width: 100%;
-}
-
-.game-image {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
+  border: 2px dashed var(--primary-color);
   border-radius: 8px;
-  margin-bottom: 15px;
-}
-
-.target-area {
-  position: relative;
-  width: 100%;
-  height: 40px;
-  background-color: #e0e0e0;
-  border-radius: 20px;
-  margin: 20px 0;
-  overflow: hidden;
-}
-
-#target {
-  position: absolute;
-  left: 40%;
-  width: 20%;
-  height: 100%;
-  background-color: #4caf50;
-}
-
-#lasso {
-  position: absolute;
-  left: 0;
-  width: 15px;
-  height: 100%;
-  background-color: var(--primary-color);
-  border-radius: 4px;
 }
 
 button {
   background-color: var(--primary-color);
-  color: var(--btn-text);
+  color: #fff;
   border: none;
-  padding: 10px 20px;
+  padding: 12px 24px;
   font-size: 16px;
   font-weight: bold;
   border-radius: 6px;
   cursor: pointer;
-  transition: transform 0.1s, opacity 0.2s;
+  transition: background-color 0.2s, transform 0.1s;
 }
 
 button:hover {
-  opacity: 0.9;
+  background-color: var(--btn-hover);
 }
 
 button:active {
-  transform: scale(0.95);
+  transform: scale(0.98);
 }
 
-#message {
+#resultado {
+  font-size: 1.2rem;
   font-weight: bold;
   margin-top: 15px;
 }
-Lógica em JavaScript (script.js)
-
+3. Lógica JavaScript (script.js)
 JavaScript
-const themeToggleBtn = document.getElementById('theme-toggle');
-const actionBtn = document.getElementById('action-btn');
-const lasso = document.getElementById('lasso');
-const target = document.getElementById('target');
-const message = document.getElementById('message');
-const scoreDisplay = document.getElementById('score');
+// --- 1. Alternador de Tema (Claro / Escuro) ---
+const themeBtn = document.getElementById('theme-btn');
 
-let lassoPosition = 0;
-let direction = 1;
-let gameInterval = null;
-let isRunning = false;
-let score = 0;
-
-// Alternar entre modo Claro e Escuro
-themeToggleBtn.addEventListener('click', () => {
+themeBtn.addEventListener('click', () => {
   const currentTheme = document.body.getAttribute('data-theme');
+  
   if (currentTheme === 'dark') {
     document.body.removeAttribute('data-theme');
-    themeToggleBtn.textContent = 'Modo Escuro';
+    themeBtn.textContent = 'Modo Escuro';
   } else {
     document.body.setAttribute('data-theme', 'dark');
-    themeToggleBtn.textContent = 'Modo Claro';
+    themeBtn.textContent = 'Modo Claro';
   }
 });
 
-// Animação do laço
-function moveLasso() {
-  lassoPosition += 2 * direction;
-  if (lassoPosition >= 95 || lassoPosition <= 0) {
-    direction *= -1;
-  }
-  lasso.style.left = lassoPosition + '%';
-}
+// --- 2. Simulador de Tempo de Laçada ---
+const lacoBtn = document.getElementById('laco-btn');
+const resultado = document.getElementById('resultado');
 
-// Lógica de acerto/erro
-actionBtn.addEventListener('click', () => {
-  if (!isRunning) {
-    // Iniciar o jogo
-    isRunning = true;
-    actionBtn.textContent = 'Lançar!';
-    message.textContent = 'Aguarde o momento certo...';
-    gameInterval = setInterval(moveLasso, 15);
+let emAndamento = false;
+let tempoInicio;
+let intervalo;
+
+lacoBtn.addEventListener('click', () => {
+  if (!emAndamento) {
+    // Inicia o cronômetro
+    emAndamento = true;
+    tempoInicio = Date.now();
+    lacoBtn.textContent = 'Laçar!';
+    lacoBtn.style.backgroundColor = '#2e7d32'; // Verde
+    
+    intervalo = setInterval(() => {
+      const decorrido = ((Date.now() - tempoInicio) / 1000).toFixed(2);
+      resultado.textContent = `Tempo: ${decorrido}s`;
+    }, 10);
   } else {
-    // Parar o laço e verificar acerto
-    clearInterval(gameInterval);
-    isRunning = false;
-    actionBtn.textContent = 'Tentar Novamente';
-
-    // Alvo está posicionado entre 40% e 60% da barra
-    if (lassoPosition >= 40 && lassoPosition <= 55) {
-      score += 10;
-      message.textContent = 'Incrível! Você lazou o boi com precisão!';
-      message.style.color = '#4caf50';
+    // Para o cronômetro
+    emAndamento = false;
+    clearInterval(intervalo);
+    const tempoFinal = ((Date.now() - tempoInicio) / 1000).toFixed(2);
+    
+    lacoBtn.textContent = 'Iniciar Nova Laçada';
+    lacoBtn.style.backgroundColor = ''; // Volta ao CSS padrão
+    
+    if (tempoFinal < 4.0) {
+      resultado.textContent = `Tempo: ${tempoFinal}s — Excelente laçada! Tempo de campeão!`;
     } else {
-      message.textContent = 'Que pena, o laço escapou!';
-      message.style.color = '#f44336';
+      resultado.textContent = `Tempo: ${tempoFinal}s — Boa prova! Tente ser mais rápido na próxima.`;
     }
-    scoreDisplay.textContent = score;
   }
 });
