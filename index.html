@@ -3,55 +3,52 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prova de Laço - Tradição e Agilidade</title>
+  <title>Prova de Laço</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <header>
-    <h1>Prova de Laço</h1>
-    <button id="theme-btn">Modo Escuro</button>
+    <h1>Mundo da Prova de Laço</h1>
+    <button id="theme-toggle">Modo Escuro</button>
   </header>
 
-  <main class="container">
+  <main>
     <section class="card">
-      <img src="https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&w=800&q=80" alt="Cavalo e cavaleiro em evento de rodeio" class="hero-img">
-      
       <h2>A Tradição do Laço Comprido</h2>
-      <p>A prova de laço é uma das modalidades mais tradicionais dos esportes equestres e rodeios. Exige extrema sintonia entre o cavaleiro e o cavalo, além de precisão e rapidez para laçar o novilho no menor tempo possível.</p>
       
-      <div class="interactive-zone">
-        <h3>Cronômetro de Arena</h3>
-        <p>Simule a largada e o tempo do seu laço na pista!</p>
-        <button id="laco-btn">Iniciar Laçada</button>
-        <p id="resultado">Tempo: 0.00s</p>
+      <div class="image-container">
+        <img src="https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&w=800&q=80" alt="Cavalo e cavaleiro em arena de rodeio">
       </div>
+
+      <p>A prova de laço é uma das modalidades mais tradicionais da cultura sertaneja e gaúcha. Ela exige precisão, agilidade e uma sintonia perfeita entre o cavaleiro e o cavalo para trançar o garrote no menor tempo possível.</p>
+
+      <button id="info-btn" onclick="mostrarSaudacao()">Saber mais sobre as regras</button>
+      <p id="mensagem" class="hidden">As regras exigem que o laço seja lançado com o cavalo em movimento, devendo pegar o boi pelos chifres de forma limpa dentro da raia delimitada.</p>
     </section>
   </main>
 
   <script src="script.js"></script>
 </body>
 </html>
-2. Estilização CSS (style.css)
+2. style.css
 CSS
-/* Variáveis para Tema Claro (Padrão) */
+/* Variáveis para o Tema Claro (Padrão) */
 :root {
   --bg-color: #f4f1ea;
   --card-bg: #ffffff;
-  --text-color: #2c1d11;
+  --text-color: #333333;
   --primary-color: #8b4513;
-  --btn-hover: #a0522d;
-  --shadow: rgba(0, 0, 0, 0.1);
+  --button-text: #ffffff;
 }
 
-/* Variáveis para Tema Escuro */
-[data-theme="dark"] {
-  --bg-color: #1a1614;
-  --card-bg: #2a2421;
-  --text-color: #f4f1ea;
-  --primary-color: #d2691e;
-  --btn-hover: #cd853f;
-  --shadow: rgba(0, 0, 0, 0.5);
+/* Variáveis para o Tema Escuro */
+body.dark-theme {
+  --bg-color: #1a1815;
+  --card-bg: #2a2621;
+  --text-color: #e0dace;
+  --primary-color: #d27d2d;
+  --button-text: #1a1815;
 }
 
 body {
@@ -69,7 +66,7 @@ header {
   align-items: center;
   padding: 20px 10%;
   background-color: var(--card-bg);
-  box-shadow: 0 2px 5px var(--shadow);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 h1 {
@@ -77,110 +74,71 @@ h1 {
   color: var(--primary-color);
 }
 
-.container {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 0 20px;
+main {
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
 }
 
 .card {
   background-color: var(--card-bg);
   padding: 30px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px var(--shadow);
+  max-width: 600px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
   text-align: center;
 }
 
-.hero-img {
+.image-container img {
   width: 100%;
-  max-height: 400px;
-  object-fit: cover;
+  height: auto;
   border-radius: 8px;
-  margin-bottom: 20px;
-}
-
-.interactive-zone {
-  margin-top: 30px;
-  padding: 20px;
-  border: 2px dashed var(--primary-color);
-  border-radius: 8px;
+  margin: 15px 0;
 }
 
 button {
   background-color: var(--primary-color);
-  color: #fff;
+  color: var(--button-text);
   border: none;
-  padding: 12px 24px;
-  font-size: 16px;
+  padding: 10px 20px;
+  font-size: 1rem;
   font-weight: bold;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.2s, transform 0.1s;
+  transition: transform 0.2s, opacity 0.2s;
 }
 
 button:hover {
-  background-color: var(--btn-hover);
+  opacity: 0.9;
+  transform: scale(1.02);
 }
 
-button:active {
-  transform: scale(0.98);
+.hidden {
+  display: none;
 }
 
-#resultado {
-  font-size: 1.2rem;
-  font-weight: bold;
+#mensagem {
   margin-top: 15px;
+  font-style: italic;
+  line-height: 1.5;
 }
-3. Lógica JavaScript (script.js)
+3. script.js
 JavaScript
-// --- 1. Alternador de Tema (Claro / Escuro) ---
-const themeBtn = document.getElementById('theme-btn');
+// Alternar Tema Claro / Escuro
+const themeToggleBtn = document.getElementById('theme-toggle');
 
-themeBtn.addEventListener('click', () => {
-  const currentTheme = document.body.getAttribute('data-theme');
+themeToggleBtn.addEventListener('click', () => {
+  document.body.classList.toggle('dark-theme');
   
-  if (currentTheme === 'dark') {
-    document.body.removeAttribute('data-theme');
-    themeBtn.textContent = 'Modo Escuro';
+  if (document.body.classList.contains('dark-theme')) {
+    themeToggleBtn.textContent = 'Modo Claro';
   } else {
-    document.body.setAttribute('data-theme', 'dark');
-    themeBtn.textContent = 'Modo Claro';
+    themeToggleBtn.textContent = 'Modo Escuro';
   }
 });
 
-// --- 2. Simulador de Tempo de Laçada ---
-const lacoBtn = document.getElementById('laco-btn');
-const resultado = document.getElementById('resultado');
-
-let emAndamento = false;
-let tempoInicio;
-let intervalo;
-
-lacoBtn.addEventListener('click', () => {
-  if (!emAndamento) {
-    // Inicia o cronômetro
-    emAndamento = true;
-    tempoInicio = Date.now();
-    lacoBtn.textContent = 'Laçar!';
-    lacoBtn.style.backgroundColor = '#2e7d32'; // Verde
-    
-    intervalo = setInterval(() => {
-      const decorrido = ((Date.now() - tempoInicio) / 1000).toFixed(2);
-      resultado.textContent = `Tempo: ${decorrido}s`;
-    }, 10);
-  } else {
-    // Para o cronômetro
-    emAndamento = false;
-    clearInterval(intervalo);
-    const tempoFinal = ((Date.now() - tempoInicio) / 1000).toFixed(2);
-    
-    lacoBtn.textContent = 'Iniciar Nova Laçada';
-    lacoBtn.style.backgroundColor = ''; // Volta ao CSS padrão
-    
-    if (tempoFinal < 4.0) {
-      resultado.textContent = `Tempo: ${tempoFinal}s — Excelente laçada! Tempo de campeão!`;
-    } else {
-      resultado.textContent = `Tempo: ${tempoFinal}s — Boa prova! Tente ser mais rápido na próxima.`;
-    }
-  }
-});
+// Exibir/Ocultar Informações
+function mostrarSaudacao() {
+  const mensagem = document.getElementById('mensagem');
+  mensagem.classList.toggle('hidden');
+}
