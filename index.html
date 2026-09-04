@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mundo da Prova de Laço</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Prova de Laço</h1>
+    <button id="theme-toggle">Modo Escuro</button>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>A Tradição do Laço Comprido</h2>
+      <p>
+        A prova de laço é uma das modalidades mais tradicionais do universo country e gaúcho. 
+        Exige precisão, sintonia entre o cavaleiro e o cavalo, e muita agilidade para laçar o boi no menor tempo possível.
+      </p>
+
+      
+
+      <div class="actions">
+        <button class="btn-primary" onclick="mostrarMensagem()">Saiba Mais</button>
+      </div>
+      <p id="mensagem" class="hidden">A modalidade testa a habilidade e o reflexo dos competidores em arenas de todo o país!</p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
+Estilização CSS (style.css)
+
+CSS
+:root {
+  --bg-color: #f4f4f9;
+  --card-bg: #ffffff;
+  --text-color: #333333;
+  --primary-color: #8b4513; /* Tom amadeirado/country */
+  --button-text: #ffffff;
+}
+
+[data-theme="dark"] {
+  --bg-color: #1e1e1e;
+  --card-bg: #2d2d2d;
+  --text-color: #f4f4f9;
+  --primary-color: #d2b48c;
+  --button-text: #1e1e1e;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background-color: var(--card-bg);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.card {
+  background-color: var(--card-bg);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+}
+
+button {
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+#theme-toggle {
+  background-color: var(--text-color);
+  color: var(--bg-color);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: var(--button-text);
+}
+
+.hidden {
+  display: none;
+}
+
+#mensagem {
+  margin-top: 1rem;
+  font-weight: bold;
+}
+Comportamento JavaScript (script.js)
+
+JavaScript
+// Alternar Tema Claro/Escuro
+const themeToggleBtn = document.getElementById('theme-toggle');
+
+themeToggleBtn.addEventListener('click', () => {
+  const currentTheme = document.body.getAttribute('data-theme');
+  
+  if (currentTheme === 'dark') {
+    document.body.removeAttribute('data-theme');
+    themeToggleBtn.textContent = 'Modo Escuro';
+  } else {
+    document.body.setAttribute('data-theme', 'dark');
+    themeToggleBtn.textContent = 'Modo Claro';
+  }
+});
+
+// Ação do Botão Principal
+function mostrarMensagem() {
+  const mensagem = document.getElementById('mensagem');
+  mensagem.classList.toggle('hidden')
+}
